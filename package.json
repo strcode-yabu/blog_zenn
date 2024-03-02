@@ -1,0 +1,11 @@
+{
+  "name": "blog_zenn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/strcode-yabu/blog_zenn.git",
+  "author": "S.Yabunaka[strCode] <yabunaka@strcode.biz>",
+  "license": "MIT",
+  "dependencies": {
+    "zenn-cli": "^0.1.153"
+  }
+}
