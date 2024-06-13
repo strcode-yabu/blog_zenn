@@ -9,7 +9,7 @@ published_at: 2024-06-13 12:00
 
 ## はじめに
 
-2024年3月4日に [Chrome OS の Linux アプリで日本語入力可能な環境を構築する](/articles/20240304-chromebook-on-dev) を執筆しました。  
+2024年3月4日に [Chrome OS の Linux アプリで日本語入力可能な環境を構築する](/s_yabu/articles/20240304-chromebook-on-dev) を執筆しました。  
 日本語の入力も行える VS Code 環境などを整えることができましたが、実はまだ足りていないものがあります。  
 そう、フォントが初期で入っているものしか設定できないのです。  
 この記事では Linux アプリで任意のフォントが設定できるようにどのようにしたら良いか、手順をまとめていきます。
@@ -115,7 +115,7 @@ fc-list | grep UDEV
 ## 動作確認
 
 フォントの追加が完了したら、 Linux アプリでフォントが利用できるか確認してみましょう。  
-前回の [Chrome OS の Linux アプリで日本語入力可能な環境を構築する](/articles/20240304-chromebook-on-dev) でも動作の確認に使用した **MousePad** で設定できれば OK です。
+前回の [Chrome OS の Linux アプリで日本語入力可能な環境を構築する](/s_yabu/articles/20240304-chromebook-on-dev) でも動作の確認に使用した **MousePad** で設定できれば OK です。
 
 ## 最後に
 
