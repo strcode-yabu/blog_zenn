@@ -40,21 +40,21 @@ published_at: 2024-06-03 12:00
 
 またセキュリティの観点から SSH キーの導入が本来望ましいですが、同じ部屋の中で必要なときだけ起動している Linux 端末に接続するので今回はそちらも割愛します。
 
-### `ssh_config` の設定
+### `sshd_config` の設定
 
-```bash:/etc/ssh/ssh_config
+```bash:/etc/ssh/sshd_config
 Port #0-65535 の範囲の任意のポート
 PermitRootLogin no
 X11Forwarding yes
 ```
 
-`/etc/ssh/ssh_config` を開き `Port`, `PermitRootLogin`, `X11Forwarding` を設定し保存します。
+`/etc/ssh/sshd_config` を開き `Port`, `PermitRootLogin`, `X11Forwarding` を設定し保存します。
 
 - `Port` : SSH で接続するポート番号です。デフォルト (`22`) のままだと攻撃のリスクがあるので `0` ~ `65535` の任意の番号に変更します。
 - `PermitRootLogin` : Root ログインを許可するかの設定です。 `no` が推奨です。
 - `X11Forwarding` : X11 の転送を許可する設定になります。 `yes` にすることで SSH 接続で GUI アプリを使うことができるようになります。
 
-上記の設定をしたら `ssh_config` を保存します。
+上記の設定をしたら `sshd_config` を保存します。
 
 ### `sshd` を再起動する
 
@@ -63,19 +63,19 @@ sudo systemctl restart sshd
 ```
 
 `sshd` のサービスを立ち上げ直します。  
-これで先ほど設定した `ssh_config` の設定が有効になります。
+これで先ほど設定した `sshd_config` の設定が有効になります。
 
 ### `Firewall` の設定
 
 `firewall-cmd` コマンドを使います。
 
 ```bash
-sudo firewall-cmd --add-port=[ssh_configで設定したポート番号]/tcp --permanent --zone=public
+sudo firewall-cmd --add-port=[sshd_configで設定したポート番号]/tcp --permanent --zone=public
 ```
 
-`ssh_config` で設定した SSH ポートを `Firewall` に追加します。
+`sshd_config` で設定した SSH ポートを `Firewall` に追加します。
 
-- `--add-port` : 追加するポート番号を指定します。先に `ssh_config` で設定した番号を設定します。
+- `--add-port` : 追加するポート番号を指定します。先に `sshd_config` で設定した番号を設定します。
 - `--permanent` : 恒久的に設定を適用します。
 - `--zone=public` : パブリックエリア向けにポートを開放する設定です。
 
@@ -143,3 +143,7 @@ mousepad
 
 - Crostini で X11 を使って Linux サーバのGUIアプリを Chromebook のディスプレイに表示して利用
   - [https://blog.ideastorage.net/posts/chromebook-with-crostini-and-x11/](https://blog.ideastorage.net/posts/chromebook-with-crostini-and-x11/)
+
+:::message
+2025.2.11 - タイポご指摘を受け、記事修正しました。
+:::
