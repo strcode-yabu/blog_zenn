@@ -6,7 +6,7 @@
   "author": "S.Yabunaka[strCode] <yabunaka@strcode.biz>",
   "license": "MIT",
   "dependencies": {
-    "zenn-cli": "^0.1.158"
+    "zenn-cli": "^0.1.159"
   },
   "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
