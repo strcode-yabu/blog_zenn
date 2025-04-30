@@ -16,6 +16,10 @@ HTML・CSS を用いて外装までは作れるかもしれないですが、そ
 Google が提供する **Google Apps Script** を活用すれば PHP などが使えるサーバーを用意しなくても、送信の処理を実装することが可能となります。  
 早速見てみましょう。
 
+:::message
+2025.4.30 テスト用の HTML、実行権限設定に関する記述を追記。
+:::
+
 ## Google Apps Script とは
 
 Google が提供する JavaScript をベースにしたスクリプト言語です。
@@ -28,6 +32,46 @@ Google ドキュメントやスプレッドシートのマクロのような使�
 **Google Apps Script** について、詳しくは [こちら](https://developers.google.com/apps-script/) をご覧ください。
 
 ## 実装の流れ
+
+### HTML を確認
+
+今回のテストには下記の HTML フォームを使用します。
+
+:::details テストフォーム HTML
+
+```html
+<form action="GAS Web App URL" method="post">
+  <p>
+    <label>
+      名前:<br>
+      <input type="text" name="name" id="name">
+    </label>
+  </p>
+  <p>
+    <label>
+      メールアドレス:<br>
+      <input type="email" name="email" id="email">
+    </label>
+  </p>
+  <p>
+    <label>
+      内容:<br>
+      <textarea name="content" id="content" cols="32" rows="5"></textarea>
+    </label>
+  </p>
+  <button type="submit">
+    送信
+  </button>
+</form>
+```
+
+:::
+
+送信されるデータは下記の通りです。
+
+- `name` (送信者名前)
+- `email` (送信者メールアドレス)
+- `content` (送信内容)
 
 ### 新規のプロジェクトを作成する
 
@@ -50,17 +94,16 @@ const doPost = e => {
 上記のコードを書くことによりフォームから送られてきた `POST` データを受け取ることができます。  
 `e.parameter` にフォームのデータが含まれているので、そちらからデータを取り出します。
 
-例えば
+今回のテスト用フォームでは、下記のデータを受信します。
 
 - `name` (送信者名前)
 - `email` (送信者メールアドレス)
 - `content` (送信内容)
 
-上記の内容を受け取った場合のコードは下記のようになります。
+データを受け取ったときのコードは下記のようになります。
 
 ```javascript
 const doPost = e => {
-  Logger.log(e);
   const name = e.parameter.name;
   const email = e.parameter.email;
   const content = e.parameter.content;
@@ -100,7 +143,6 @@ const sendMail = (name, email, content) => {
 
 ```javascript
 const doPost = e => {
-  Logger.log(e);
   const name = e.parameter.name;
   const email = e.parameter.email;
   const content = e.parameter.content;
@@ -118,7 +160,11 @@ const doPost = e => {
 ![""](/images/20240626-form-backend-on-gas/img004.png)
 
 新しいデプロイ画面が出てきたら **種類の選択** の歯車マークをクリックして **ウェブアプリ** を選択します。  
-特に設定をいじる必要はないですが、わかりやすいように説明の部分は入れておくとあとから管理がしやすくなります。
+わかりやすいように説明の部分は入れておくとあとから管理がしやすくなります。
+
+![""](/images/20240626-form-backend-on-gas/img005.png)
+
+またフォームの送信先として使う場合は、 **次のユーザーとして実行** の項目を **ウェブアプリケーションにアクセスしているユーザー** に設定しておく必要があります。
 
 デプロイが終わったら Web アプリ用の URL が発行されるので、そちらを送信用フォームの `<form>` タグの `action` 属性の値に設定します。  
 ※ この際に `method` 属性が `post` になっていることも確認しておきましょう。
